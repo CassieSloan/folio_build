@@ -7,21 +7,11 @@ const path = require('path');
 // Configuration file
 const website = require('./config/website');
 
-// Schemas
-const pageSchema = require('./.prismic/page.json');
-
 // Path prefix
 const pathPrefix = website.pathPrefix === '/' ? '' : website.pathPrefix;
 
 // Environment variables
-const {
-  IS_STAGING,
-  SITE_URL,
-  PRISMIC_REPO_NAME,
-  API_KEY,
-  NODE_ENV,
-  gatsby_executing_command: GATSBY_CMD,
-} = process.env;
+const { IS_STAGING, SITE_URL, NODE_ENV, gatsby_executing_command: GATSBY_CMD } = process.env;
 
 // Robots txt warning on build
 if (IS_STAGING && NODE_ENV !== 'development') {
@@ -33,7 +23,7 @@ if (!IS_STAGING && NODE_ENV !== 'development') {
 
 // Env variable check
 if (GATSBY_CMD !== 'serve') {
-  const requiredEnvVariables = ['SITE_URL', 'PRISMIC_REPO_NAME', 'API_KEY'];
+  const requiredEnvVariables = ['SITE_URL'];
   requiredEnvVariables.map(item => {
     if (!process.env[item]) {
       throw Error(`Set ${item} env variable. See README`);
@@ -56,26 +46,10 @@ module.exports = {
     ogLanguage: website.ogLanguage,
     author: website.author,
     twitter: website.twitter,
-    prismicRepo: PRISMIC_REPO_NAME,
   },
   /* Plugins */
   plugins: [
     'gatsby-plugin-react-helmet',
-    {
-      resolve: 'gatsby-source-prismic',
-      options: {
-        repositoryName: PRISMIC_REPO_NAME,
-        accessToken: API_KEY,
-        linkResolver: () => doc => `/${doc.uid}`,
-        schemas: {
-          page: pageSchema,
-        },
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-create-client-paths',
-      options: { prefixes: ['/preview/*', '/unpublishedPreview/*'] },
-    },
     {
       resolve: 'gatsby-plugin-sass',
       options: {
@@ -116,7 +90,6 @@ module.exports = {
         src: path.join(__dirname, 'src'),
         components: path.join(__dirname, 'src/components'),
         images: path.join(__dirname, 'src/images'),
-        slices: path.join(__dirname, 'src/slices'),
       },
     },
     {
@@ -136,12 +109,6 @@ module.exports = {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: SITE_URL + pathPrefix,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-force-trailing-slashes',
-      options: {
-        excludedPaths: ['/404.html'],
       },
     },
     {
