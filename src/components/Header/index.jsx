@@ -8,7 +8,6 @@ const Header = () => (
   <header className="header">
     <div className="wrapper">
       <Logo />
-      <Navigation classNamePrefix="header" links={navigationLinks} />
     </div>
   </header>
 );
