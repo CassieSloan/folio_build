@@ -5,7 +5,7 @@ import './index.scss';
 const Index = ({ location }) => (
   <Layout location={location}>
     <div className="wrapper">
-      <h1>Homepage</h1>
+      <h1>hello</h1>
     </div>
   </Layout>
 );
