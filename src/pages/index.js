@@ -1,13 +1,16 @@
 import React from 'react';
-import { Layout } from 'components';
+import { Layout, Header } from 'components';
 import './index.scss';
 
 const Index = ({ location }) => (
-  <Layout location={location}>
+  // <Layout location={location}>
+  <>
+    <Header />
     <div className="wrapper">
       <h1>hello</h1>
     </div>
-  </Layout>
+    {/* // </Layout> */}
+  </>
 );
 
 export default Index;

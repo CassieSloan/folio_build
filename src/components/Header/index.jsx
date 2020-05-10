@@ -2,7 +2,11 @@ import React from 'react';
 import { Logo, Navigation } from 'components';
 import './styles.scss';
 
-const navigationLinks = [{ to: '#', text: 'Example Link', className: '' }];
+const navigationLinks = [
+  { to: '#', text: 'Home' },
+  { to: '/about', text: 'about' },
+  { to: '/work', text: 'work' },
+];
 
 const Header = () => (
   <header className="header">
